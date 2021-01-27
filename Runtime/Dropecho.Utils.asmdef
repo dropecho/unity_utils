@@ -1,6 +1,3 @@
 {
-    "name": "com.dropecho.utils",
-    "excludePlatforms": [],
-    "autoReferenced": true,
-    "noEngineReferences": false
+  "name": "Dropecho.Utils"
 }
