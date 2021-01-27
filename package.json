@@ -1,0 +1,10 @@
+{
+  "name": "com.dropecho.utils",
+  "version": "0.1.0",
+  "description": "A collection of random utils.",
+  "author": "vantreeseba <vantreeseba@gmail.com>",
+  "repository": "github:dropecho/unity_utils",
+  "license": "MIT",
+  "unity": "2019.1",
+  "unityRelease": "0b5"
+}
