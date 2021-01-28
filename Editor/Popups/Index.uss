@@ -1,0 +1,47 @@
+.popup {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border-width: 1px;
+  border-color: #555555;
+  /* border-radius: 5px; */
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom-width: 1px;
+  border-bottom-color: #555555;
+  background-color: #555;
+  padding: 2px;
+}
+
+.form {
+  flex: 1;
+  flex-direction: column;
+  padding: 2px;
+  padding-top: 5px;
+}
+
+.error {
+  background-color: #553333;
+}
+
+.footer {
+  flex-direction: row;
+  justify-content: center;
+  padding: 5px;
+
+  border-top-width: 1px;
+  border-top-color: #555555;
+}
+
+.help {
+  white-space: normal;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #555;
+  margin: 3px;
+}
