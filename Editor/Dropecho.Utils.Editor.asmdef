@@ -1,6 +1,17 @@
 {
-    "name": "com.dropecho.utils.editor",
+    "name": "Dropecho.Utils.Editor",
+    "references": [
+        "GUID:bd72aa0b1f4a4431acd9530b92277e0d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
     "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
     "noEngineReferences": false
 }
