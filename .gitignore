@@ -69,16 +69,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# Odin Inspector
-# Ignore the auto-generated AOT compatibility dll.
-/Assets/Plugins/Sirenix/Assemblies/AOT/*
-
-# Ignore all unpacked demos.
-/Assets/Plugins/Sirenix/Demos/*
-
-# But keep the demo packages themselves.
-!/Assets/Plugins/Sirenix/Demos/*.unitypackage
-
 # FMOD
 /Assets/FMODStudioCache.asset
 /Assets/FMODStudioCache.asset.meta
@@ -86,13 +76,3 @@ fmod.log
 fmod_editor.log
 /Assets/Audio/FMOD Project/.cache
 /Assets/Plugins/FMOD/Cache
-
-#UMotion
-UMotionData/*
-
-.DS_Store
-.vscode
-Assets/FR2_Cache.asset
-Assets/FR2_Cache.asset.meta
-Assets/Resources/Saves/Auto-save.json
-Assets/Resources/Saves/Auto-save.meta
