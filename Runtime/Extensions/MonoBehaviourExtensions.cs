@@ -4,11 +4,24 @@ using UnityEngine;
 
 namespace Dropecho {
   public static class MonoBehaviourExtensions {
-    public static Coroutine RunContinuously(this MonoBehaviour behavior, Action action, float timeIncrement = 1) {
+    public static Coroutine RunContinuously(this MonoBehaviour behavior, float timeIncrement, Action action) {
       return behavior.StartCoroutine(CoroutineActionContinous(action, timeIncrement));
     }
 
-    public static Coroutine RunAfterDelay(this MonoBehaviour behavior, Action action, float delay = 0) {
+    public static Coroutine LerpFor(this MonoBehaviour behavior, float seconds, Action<float> callback) {
+      return behavior.StartCoroutine(LerpOverTime(seconds, callback));
+    }
+
+    private static IEnumerator LerpOverTime(float seconds, Action<float> callback) {
+      float elapsedTime = 0;
+      while (elapsedTime < seconds) {
+        callback(elapsedTime / seconds);
+        elapsedTime += Time.deltaTime;
+        yield return new WaitForEndOfFrame();
+      }
+    }
+
+    public static Coroutine RunAfterDelay(this MonoBehaviour behavior, float delay, Action action) {
       return behavior.StartCoroutine(CoroutineActionWithDelay(action, delay));
     }
 
