@@ -33,7 +33,6 @@ namespace Dropecho {
       return SetFieldOrPropertyValue(fieldName, obj, value);
     }
 
-
     public static object GetSerializedPropertyRootObject(SerializedProperty property) {
       UnityEngine.Object tar = property.serializedObject.targetObject;
       UnityEngine.Object obj = tar as Component;
@@ -123,5 +122,9 @@ namespace Dropecho {
 
       return allTypes;
     }
+  
+    // public static IEnumerable<SerializedProperty> GetArrayElements(this SerializedProperty prop) {
+    //   var 
+    // }
   }
 }

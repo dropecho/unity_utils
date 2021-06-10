@@ -8,35 +8,29 @@ using UnityEngine.UIElements;
 [CustomPropertyDrawer(typeof(SerializableList<>))]
 public class SerializeableListDrawer : PropertyDrawer {
   public override VisualElement CreatePropertyGUI(SerializedProperty property) {
-    var root = new VisualElement();
-    root.AddToClassList("container");
-    root.AddToClassList("rows");
-    Rerender(root, property);
-    return root;
+    return Rerender(new VisualElement().AddToClassList("container", "rows", "fill"), property);
   }
 
-  private void Rerender(VisualElement root, SerializedProperty property) {
+  private VisualElement Rerender(VisualElement root, SerializedProperty property) {
     property.serializedObject.ApplyModifiedProperties();
 
-    root.Clear();
-    var foldout = RenderFoldout(root, property);
-    foreach (var row in RenderRows(root, property)) {
-      foldout.Add(row);
-    }
-    root.Add(foldout);
-    root.Add(RenderAddButton(root, property));
+    return root.Replace(
+      RenderFoldout(root, property)
+        .AddChildren(RenderRows(root, property)),
+      RenderAddButton(root, property)
+    );
   }
 
   private VisualElement RenderFoldout(VisualElement root, SerializedProperty property) {
     var valuesProp = property.FindPropertyRelative("values");
 
     var container = new Foldout() {
-      text = valuesProp.arraySize + " items",
+      text = valuesProp.arraySize + " value" + (valuesProp.arraySize != 1 ? "s" : ""),
       value = valuesProp.isExpanded
     };
-    container.RegisterValueChangedCallback(ev => valuesProp.isExpanded = ev.newValue);
-    container.AddToClassList("container");
-    container.AddToClassList("fill");
+    container
+      .AddClasses("container", "fill")
+      .RegisterValueChangedCallback(ev => valuesProp.isExpanded = ev.newValue);
 
     return container;
   }
@@ -46,12 +40,8 @@ public class SerializeableListDrawer : PropertyDrawer {
 
     var rows = new List<VisualElement>();
     for (var i = 0; i < valuesProp.arraySize; i++) {
-      var row = new VisualElement();
-      row.AddToClassList("container");
-      row.AddToClassList("rows");
+      var row = new VisualElement().AddClasses("container", "rows");
       var currentIndex = i;
-      var field = new PropertyField(valuesProp.GetArrayElementAtIndex(currentIndex), " ").BindAndReturn(property.serializedObject);
-
       var deleteButton = new Button(() => {
         valuesProp.DeleteArrayElementAtIndex(currentIndex);
         Rerender(root, property);
@@ -59,9 +49,14 @@ public class SerializeableListDrawer : PropertyDrawer {
         text = "-"
       };
 
-      row.Add(field);
-      row.Add(deleteButton);
-      rows.Add(row);
+      rows.Add(
+        row.Add(
+          new PropertyField(valuesProp.GetArrayElementAtIndex(i))
+            .AddClasses("dictionary-field")
+            .BindAndReturn(property.serializedObject),
+          deleteButton
+        )
+      );
     }
 
     return rows;
@@ -69,13 +64,10 @@ public class SerializeableListDrawer : PropertyDrawer {
 
   private VisualElement RenderAddButton(VisualElement root, SerializedProperty property) {
     var valuesProp = property.FindPropertyRelative("values");
-    var button = new Button(() => {
+    return new Button(() => {
       valuesProp.arraySize += 1;
       Rerender(root, property);
-    }) {
-      text = "+"
-    };
-    return button;
+    }) { text = "+" };
   }
 
   // Draw the property inside the given rect

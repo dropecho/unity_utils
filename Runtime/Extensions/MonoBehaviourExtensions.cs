@@ -14,11 +14,14 @@ namespace Dropecho {
 
     private static IEnumerator LerpOverTime(float seconds, Action<float> callback) {
       float elapsedTime = 0;
-      while (elapsedTime < seconds) {
+      while (elapsedTime <= seconds) {
         callback(elapsedTime / seconds);
         elapsedTime += Time.deltaTime;
         yield return new WaitForEndOfFrame();
       }
+
+      // Call callback one final time to ensure that percent is set to 100% (1).
+      callback(1);
     }
 
     public static Coroutine RunAfterDelay(this MonoBehaviour behavior, float delay, Action action) {
